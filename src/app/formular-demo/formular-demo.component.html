@@ -1,0 +1,101 @@
+<!--
+<br>
+<br>
+
+<form [formGroup]="formular" (ngSubmit)="onSubmit()">
+  <label for="meno">Meno: </label>
+  <input id="meno" type="text" formControlName="meno">
+  <br>
+  <label for="priezvisko">Priezvisko: </label>
+  <input id="priezvisko" type="text" formControlName="priezvisko">
+  <br>
+  <label for="username">Užívateľské meno: </label>
+  <input id="username" type="text" formControlName="username">
+  <br>
+  <label for="heslo">Heslo: </label>
+  <input id="heslo" type="text" formControlName="heslo">
+  <br>
+  <label for="vek">Vek: </label>
+  <input id="vek" type="text" formControlName="vek">
+  <br>
+  <label for="vaha">Vaha: </label>
+  <input id="vaha" type="text" formControlName="vaha">
+  <br>
+  <label for="vyska">Vyska: </label>
+  <input id="vyska" type="text" formControlName="vyska">
+  <br>
+  <label for="pohlavie">Pohlavie: </label>
+  <input id="pohlavie" type="text" formControlName="pohlavie">
+  <br>
+
+  <button type="submit" [disabled]="!formular.valid">odosli</button>
+
+  <p>Form Status: {{ formular.status }}</p>
+
+</form>
+-->
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrácia a Prihlásenie</title>
+  <link rel="stylesheet" href="formular-demo.component.css">
+</head>
+<body>
+
+<div class="form-container">
+  <!-- Registrácia -->
+  <div class="form">
+    <h2>Registrácia</h2>
+    <form [formGroup]="formular" (ngSubmit)="onSubmit()">
+      <label for="meno">Meno: </label>
+      <input id="meno" type="text" formControlName="meno">
+      <br>
+      <label for="priezvisko">Priezvisko: </label>
+      <input id="priezvisko" type="text" formControlName="priezvisko">
+      <br>
+      <label for="username">Užívateľské meno: </label>
+      <input id="username" type="text" formControlName="username">
+      <br>
+      <label for="heslo">Heslo: </label>
+      <input id="heslo" type="text" formControlName="heslo">
+      <br>
+      <label for="vek">Vek: </label>
+      <input id="vek" type="text" formControlName="vek">
+      <br>
+      <label for="vaha">Vaha: </label>
+      <input id="vaha" type="text" formControlName="vaha">
+      <br>
+      <label for="vyska">Vyska: </label>
+      <input id="vyska" type="text" formControlName="vyska">
+      <br>
+      <label for="pohlavie">Pohlavie: </label>
+      <input id="pohlavie" type="text" formControlName="pohlavie">
+      <br>
+
+      <p>Form Status: {{ formular.status }}</p>
+
+      <button type="submit" [disabled]="!formular.valid">odosli</button>
+    </form>
+
+  </div>
+
+  <!-- Prihlásenie -->
+  <div class="form">
+    <h2>Prihlásenie</h2>
+    <form id="loginForm">
+      <label for="loginEmail">E-mail:</label>
+      <input type="email" id="loginEmail" name="loginEmail" required>
+
+      <label for="loginPassword">Heslo:</label>
+      <input type="password" id="loginPassword" name="loginPassword" required>
+
+      <input type="submit" value="Prihlásiť sa">
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
