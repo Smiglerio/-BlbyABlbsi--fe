@@ -1,10 +1,12 @@
+.menu{
+  z-index: 1;
+}
 .tooltip{
+  background-color: gray;
   justify-content: right;
   display: flex;
 }
 .image{
   background-size: cover;
-  background-image: url("images/background1.jpg");
+  width: auto;
 }
-
-

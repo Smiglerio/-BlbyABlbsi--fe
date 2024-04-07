@@ -1,0 +1,18 @@
+.textContainer{
+  margin-top: 70px;
+  margin-left: 60px;
+}
+.introText{
+  color: white;
+  font-size: 5vw;
+  margin-bottom: 0.7em;
+  /*display: flex;*/
+  justify-content: left;
+}
+
+.registerButton{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
