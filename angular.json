@@ -62,6 +62,9 @@
             },
             "development": {
               "buildTarget": "BlbyABlbsife:build:development"
+            },
+            "options": {
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
