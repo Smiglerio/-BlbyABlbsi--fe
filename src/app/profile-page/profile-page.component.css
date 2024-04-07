@@ -1,0 +1,26 @@
+.menu{
+  z-index: 1;
+}
+.tooltip{
+  background-color: gray;
+  justify-content: right;
+  display: flex;
+}
+.ProfileImage{
+  background-size: cover;
+  width: auto;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 40px  150px ;
+}
+
+.content {
+  flex: 1;
+}
+
+.attributes {
+  width: 300px;
+  padding: 20px;
+}
