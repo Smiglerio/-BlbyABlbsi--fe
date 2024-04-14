@@ -42,10 +42,10 @@ export class DemoService {
     });
     return this.http.post<any>(this.apiUrlUserLogin, { username, password }, {headers});
   }*/
-  login(username: string, password: string): Observable<any> {
+  login(username: string, heslo: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<any>(this.apiUrlUserLogin, { username, password }, { headers });
+    return this.http.post<any>(this.apiUrlUserLogin, { username, heslo }, { headers });
   }
 }
