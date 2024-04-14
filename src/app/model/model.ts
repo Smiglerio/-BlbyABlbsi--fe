@@ -44,5 +44,16 @@ export class LoginDTO {
     this.username = username;
     this.heslo = heslo;
   }
+}
 
+export class PokrokDTO {
+  planid: number | null;
+  nazov: string;
+  popis: string;
+
+  constructor(planid: number | null, nazov: string, popis: string) {
+    this.planid = planid;
+    this.nazov = nazov;
+    this.popis = popis;
+  }
 }

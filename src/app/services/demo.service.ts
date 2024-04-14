@@ -33,7 +33,9 @@ export class DemoService {
   getCvicenieList(): Observable<any>{
     return this.http.get('http://localhost:8080/fitness/api/cvicenie/list');
   }
-
+  getTreningovePlanyList() : Observable<any>{
+    return this.http.get('http://localhost:8080/fitness/api/treningovyPlan/list');
+  }
  /* login(username: ɵValue<ɵElement<(string | ((control: AbstractControl) => (ValidationErrors | null)))[], null>> | undefined, password: ɵValue<ɵElement<string[], null>> | undefined): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
