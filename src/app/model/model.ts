@@ -1,4 +1,3 @@
-import {ɵElement, ɵValue} from "@angular/forms";
 
 export class UserDTO {
   id: number|null;
@@ -12,7 +11,7 @@ export class UserDTO {
   pohlavie: string;
 
 
-  constructor(id: number | null, meno: string, priezvisko: string, username:string, heslo: string, vek: number, vaha: number, vyska: number, pohlavie: string) {
+  constructor(id: number | null, meno: string, priezvisko: string, username: string, heslo: string, vek: number, vaha: number, vyska: number, pohlavie: string) {
     this.id = id;
     this.meno = meno;
     this.priezvisko = priezvisko;
@@ -24,7 +23,19 @@ export class UserDTO {
     this.pohlavie = pohlavie;
   }
 }
+export class CvicenieDTO {
+  cvicenieid: number | null;
+  nazovcviku: string;
+  popiscviku: string;
+  narocnostcviku: string;
 
+  constructor(cvicenieid: number | null, nazovcviku: string, popiscviku: string, narocnostcviku: string) {
+    this.cvicenieid = cvicenieid;
+    this.nazovcviku = nazovcviku;
+    this.popiscviku = popiscviku;
+    this.narocnostcviku = narocnostcviku;
+  }
+}
 export class LoginDTO {
   username: string;
   heslo: string;
@@ -33,4 +44,5 @@ export class LoginDTO {
     this.username = username;
     this.heslo = heslo;
   }
+
 }
