@@ -57,3 +57,15 @@ export class PokrokDTO {
     this.popis = popis;
   }
 }
+
+export class treningovyPlanDTO {
+  planid: number |null;
+  nazov : string;
+  popis : string;
+
+  constructor(planid: number | null, nazov: string , popis: string) {
+    this.nazov = nazov;
+    this.planid = planid;
+    this.popis = popis;
+  }
+}

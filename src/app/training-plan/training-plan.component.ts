@@ -1,4 +1,4 @@
-import {Component, NgModule, OnInit} from '@angular/core';
+import {Component, Input, NgModule, OnInit} from '@angular/core';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -9,6 +9,10 @@ import {DemoService} from "../services/demo.service";
 import {MatTable} from "@angular/material/table";
 import {MatTableModule} from '@angular/material/table';
 import {MatTabHeader} from "@angular/material/tabs";
+import {CommonModule} from "@angular/common";
+import {CvicenieDTO} from "../model/model";
+import {MatExpansionModule} from "@angular/material/expansion";
+
 @Component({
   selector: 'app-training-plan',
   standalone: true,
@@ -24,7 +28,9 @@ import {MatTabHeader} from "@angular/material/tabs";
     MatMenuTrigger,
     MatTable,
     MatTableModule,
-    MatTabHeader
+    MatTabHeader,
+    CommonModule,
+    MatExpansionModule
   ],
   templateUrl: './training-plan.component.html',
   styleUrl: './training-plan.component.css'
@@ -32,25 +38,34 @@ import {MatTabHeader} from "@angular/material/tabs";
 
 export class TrainingPlanComponent implements OnInit{
   data :any;
-  data2 :any;
+  cvicenia: {[key: number]: any[]} = {};
+
+  treningovePlany : any;
+  panelOpenState = false;
   constructor(private demoService : DemoService) { }
   ngOnInit() {
-    this.loadTrainingPlans();
+    this.loadTreningovePlany();
   }
-
-  displayedColumns: string[] = ['nazovCviku', 'narocnostCviku', 'popisCviku'];
-  displayedColumns2: string[] = ['planId','nazov', 'popis'];
-    loadData(): void {
+  loadData(): void {
       this.data = this.demoService.getCvicenieList();
       console.log(this.data);
       console.log("tadaaaaaa");
     }
-    loadTrainingPlans() : void {
-      this.data2 = this.demoService.getTreningovePlanyList();
+    loadTreningovePlany() : void {
+      this.demoService.getTreningovePlanyList().subscribe((treningovePlany: any) => {
+        this.treningovePlany = treningovePlany;
+        this.loadData();
+      })
     }
-  pokus(planId: number): void {
-    console.log(planId);
+
+  loadCviceniaByPlanId(id: number): void {
+    console.log("jujhuuhu");
+    this.demoService.getCviceniaByPlan(id).subscribe((cvicenia: any) => {
+      this.cvicenia[id] = cvicenia;
+      console.log("som dnu");
+    });
   }
+
 }
 
 

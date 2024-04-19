@@ -12,10 +12,7 @@ import {HttpClientModule} from "@angular/common/http";
 
 export class DemoService {
   private apiUrlUserCreate: string = "http://localhost:8080/fitness/api/uzivatel";
-  private apiUrlUserGet: string = "http://localhost:8080/fitness/api/uzivatel/1";
   private apiUrlUserLogin: string = "http://localhost:8080/fitness/api/login";
-  private apiUrlCvicenieGetAll : string = "http://localhost:8080/fitness/api/cvicenie/list";
-  private apiUrlCvicenieGet : string = "http://localhost:8080/fitness/api/cvicenie/1";
   constructor(private http: HttpClient) { }
 
   /*let req = http.get<CvicenieDTO>('fitness/api/cvicenie/list');*/
@@ -49,5 +46,9 @@ export class DemoService {
       'Content-Type': 'application/json'
     });
     return this.http.post<any>(this.apiUrlUserLogin, { username, heslo }, { headers });
+  }
+
+  getCviceniaByPlan(id: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/fitness/api/treningovyPlan/cvicenia/${id}`);
   }
 }
