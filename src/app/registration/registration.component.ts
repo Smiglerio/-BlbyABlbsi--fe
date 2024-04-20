@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIcon} from "@angular/material/icon";
 import {LoginDTO, UserDTO} from "../model/model";
 import {provideRouter, Router, RouterLink} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-registration',
@@ -17,7 +18,7 @@ import {provideRouter, Router, RouterLink} from "@angular/router";
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent {
-  constructor(private formBuilder: FormBuilder, private demoService: DemoService, private toastService: ToastService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private demoService: DemoService, private toastService: ToastService, private router: Router,private authService: AuthService) {}
 
   @Output() newUserEvent = new EventEmitter<UserDTO>();
 
@@ -57,11 +58,23 @@ export class RegistrationComponent {
 
   login(): void {
     console.log(this.formular1.value);
-    this.demoService.login(this.formular1.value.username, this.formular1.value.heslo).subscribe(response => {
-      console.log('Prihlásenie úspešné');
-      this.router.navigate(['../profile-page'])
-    }, error => {
-      console.error('Prihlásenie zlyhalo', error);
+    if (this.formular1.value.username && this.formular1.value.heslo) {
+      this.demoService.login(this.formular1.value.username, this.formular1.value.heslo).subscribe(response => {
+        console.log('Prihlásenie úspešné');
+        this.router.navigate(['../profile-page'])
+      }, error => {
+        console.error('Prihlásenie zlyhalo', error);
+      });
+    }
+  }
+
+  auth(): AuthService {
+    return this.authService;
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => console.log('odhlaseny..')
     });
   }
 }
