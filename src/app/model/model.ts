@@ -69,3 +69,8 @@ export class treningovyPlanDTO {
     this.popis = popis;
   }
 }
+
+export interface UserRolesDto {
+  username: string;
+  roles: string[];
+}
