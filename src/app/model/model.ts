@@ -27,14 +27,24 @@ export class CvicenieDTO {
   cvicenieid: number | null;
   nazovcviku: string;
   popiscviku: string;
-  narocnostcviku: string;
 
-  constructor(cvicenieid: number | null, nazovcviku: string, popiscviku: string, narocnostcviku: string) {
+  constructor(cvicenieid: number | null, nazovcviku: string, popiscviku: string) {
     this.cvicenieid = cvicenieid;
     this.nazovcviku = nazovcviku;
     this.popiscviku = popiscviku;
-    this.narocnostcviku = narocnostcviku;
   }
+}
+export class typCviceniaDTO {
+  idTypCvicenia: number | null;
+  narocnost : string;
+  pocetOpakovani : number;
+
+  constructor( idTypCvicenia: number | null,narocnost : string,pocetOpakovani : number) {
+    this.idTypCvicenia = idTypCvicenia;
+    this.narocnost = narocnost;
+    this.pocetOpakovani = pocetOpakovani;
+  }
+
 }
 export class LoginDTO {
   username: string;
