@@ -62,7 +62,7 @@ export class TrainingPlanComponent implements OnInit{
     console.log("jujhuuhu");
     this.demoService.getCviceniaByPlan(id).subscribe((cvicenia: any) => {
       this.cvicenia[id] = cvicenia;
-      console.log("som dnu");
+      console.log("cvicenia");
     });
   }
 

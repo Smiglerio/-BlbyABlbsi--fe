@@ -27,11 +27,16 @@ export class CvicenieDTO {
   cvicenieid: number | null;
   nazovcviku: string;
   popiscviku: string;
-
-  constructor(cvicenieid: number | null, nazovcviku: string, popiscviku: string) {
+  narocnost : string;
+  pocetOpakovani : number;
+  idTypCvicenia: number | null;
+  constructor(cvicenieid: number | null, nazovcviku: string, popiscviku: string,narocnost : string,pocetOpakovani : number,idTypCvicenia: number ) {
     this.cvicenieid = cvicenieid;
     this.nazovcviku = nazovcviku;
     this.popiscviku = popiscviku;
+    this.narocnost = narocnost;
+    this.pocetOpakovani = pocetOpakovani;
+    this.idTypCvicenia = idTypCvicenia;
   }
 }
 export class typCviceniaDTO {
