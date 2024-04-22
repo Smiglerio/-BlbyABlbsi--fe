@@ -9,23 +9,12 @@ import {HttpClientModule} from "@angular/common/http";
   providedIn: 'root'
 })
 
-
 export class DemoService {
   private apiUrlUserCreate: string = "http://localhost:8080/fitness/api/uzivatel";
   private apiUrlUserLogin: string = "http://localhost:8080/fitness/api/login";
   constructor(private http: HttpClient) { }
 
-  /*let req = http.get<CvicenieDTO>('fitness/api/cvicenie/list');*/
-
-
-
   vytvorUsera(user: UserDTO): Observable<number>{
-    /*
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    });
-    */
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Basic '
@@ -42,7 +31,8 @@ export class DemoService {
 
   login(username: string, heslo: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '
     });
     return this.http.post<any>(this.apiUrlUserLogin, { username, heslo }, { headers });
   }

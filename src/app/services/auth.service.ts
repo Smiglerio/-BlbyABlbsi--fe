@@ -15,7 +15,7 @@ export class AuthService {
   login(username: string, heslo: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(username +':'+ heslo)
+      'Authorization': 'Bearer ' + btoa(username +':'+ heslo)
     });
     return this.http.post<any>(this.apiUrlAuth, null, {headers, observe: 'response'}).pipe(
       tap((response: HttpResponse<any>) => this.setToken(response.headers.get("Authorization"))),
