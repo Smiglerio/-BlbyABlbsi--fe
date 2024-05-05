@@ -9,6 +9,9 @@
           Id plánu: {{ trening.planId }}
         </mat-panel-description>
         <mat-panel-description>
+          <button (click)="createUzivatelTreningPlan(this.userId,trening.planId)" >pridaj plán</button>
+        </mat-panel-description>
+        <mat-panel-description>
           Popis plánu: {{ trening.popis }}
         </mat-panel-description>
       </mat-expansion-panel-header>

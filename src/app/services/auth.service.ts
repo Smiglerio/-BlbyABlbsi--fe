@@ -9,7 +9,7 @@ import {UserRolesDto} from "../model/model";
 export class AuthService {
 
   private apiUrlAuth: string = "http://localhost:8080/api/authentication";
-
+  private apiUrlLogout: string = "http://localhost:8080/api/authentication/logout";
   constructor(private http: HttpClient) { }
 
   login(username: string, heslo: string): Observable<any> {
@@ -69,8 +69,12 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.delete(this.apiUrlAuth, {}).pipe(
-      tap( () => { localStorage.removeItem('token'); localStorage.removeItem('user'); } )
+    console.log("logout 1")
+    return this.http.delete(this.apiUrlLogout, {
+    }).pipe(
+      tap( () => { localStorage.removeItem('token');
+        console.log("logout 2")
+        localStorage.removeItem('user'); } )
     )
   }
 

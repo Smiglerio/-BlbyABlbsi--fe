@@ -6,6 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {HomePageComponent} from "./home-page/home-page.component";
+import {AuthService} from "./services/auth.service";
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,9 +17,28 @@ import {HomePageComponent} from "./home-page/home-page.component";
 })
 
 export class AppComponent {
-  constructor(public router: Router) {
+  constructor(public router: Router,private authService: AuthService) {
 
   }
+  /*logout(): void {
+    this.authService.logout().subscribe({
+      next: () => console.log('odhlaseny..')
+    });
+  }*/
+  logout(): void {
+    console.log("tutu")
+    this.authService.logout().subscribe({
+      next: () => {
+        console.log('odhlaseny..');
+        // Môžete tu pridať ďalšie kroky po úspešnom odhlásení, napríklad presmerovanie na inú stránku.
+      },
+      error: (error) => {
+        console.error('Chyba pri odhlasovaní:', error);
+        // Môžete tu spracovať chybu, napríklad zobraziť užívateľovi upozornenie.
+      }
+    });
+  }
+
   title = 'BlbyABlbsife';
   protected readonly RouterLink = RouterLink;
 }
