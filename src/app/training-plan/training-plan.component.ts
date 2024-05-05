@@ -1,5 +1,5 @@
 import {Component, Input, NgModule, OnInit} from '@angular/core';
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {ActivatedRoute, RouterLink, RouterOutlet} from "@angular/router";
 import {MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
 import {AngularToastifyModule} from "angular-toastify";
@@ -11,7 +11,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabHeader} from "@angular/material/tabs";
 import {CommonModule} from "@angular/common";
 import {CvicenieDTO} from "../model/model";
+import {UserDTO} from "../model/model";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-training-plan',
@@ -30,7 +32,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatTableModule,
     MatTabHeader,
     CommonModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   templateUrl: './training-plan.component.html',
   styleUrl: './training-plan.component.css'
@@ -39,12 +41,15 @@ import {MatExpansionModule} from "@angular/material/expansion";
 export class TrainingPlanComponent implements OnInit{
   data :any;
   cvicenia: {[key: number]: any[]} = {};
-
   treningovePlany : any;
   panelOpenState = false;
-  constructor(private demoService : DemoService) { }
+  userId: any;
+  constructor(private demoService : DemoService, private authService: AuthService) { }
   ngOnInit() {
-    this.loadTreningovePlany();
+    this.demoService.getUzivatelFromToken(this.authService.getToken()).subscribe(user => {
+      this.userId = parseInt(user.split(',')[6].split(':')[1])
+      this.loadTreningovePlany();
+    });
   }
   loadData(): void {
       this.data = this.demoService.getCvicenieList();
@@ -64,6 +69,13 @@ export class TrainingPlanComponent implements OnInit{
       this.cvicenia[id] = cvicenia;
       console.log("cvicenia");
     });
+  }
+
+  createUzivatelTreningPlan(userId: number, planId: number) : void {
+    console.log("zaciatok pridavania");
+    this.demoService.createUzivatelTreningPlan(userId,planId).subscribe((userPlan) => {
+      console.log("pridane?");
+    })
   }
 
 }

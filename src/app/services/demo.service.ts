@@ -29,15 +29,36 @@ export class DemoService {
     return this.http.get('http://localhost:8080/fitness/api/treningovyPlan/list');
   }
 
-  login(username: string, heslo: string): Observable<any> {
+  //login(username: string, heslo: string): Observable<any> {
+  //  const headers = new HttpHeaders({
+  //    'Content-Type': 'application/json',
+  //    'Authorization': 'Bearer'
+  //  });
+  //  return this.http.post<any>(this.apiUrlUserLogin, { username, heslo }, { headers });
+  //}
+  login(username: string, heslo: string): Observable<string> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer '
+      'Authorization': 'Bearer'
     });
-    return this.http.post<any>(this.apiUrlUserLogin, { username, heslo }, { headers });
+    return this.http.post<string>(this.apiUrlUserLogin, { username, heslo }, { headers, responseType: 'text' as 'json' });
+  }
+  getUzivatelFromToken(token: String | null): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer'
+    });
+    console.log("string tutut " + token);
+    const temp  = this.http.post<string>("http://localhost:8080/fitness/api/getUzivatelFromToken",{token},{ headers, responseType: 'text' as 'json' });
+    console.log("temp " + temp);
+    return temp;
   }
 
   getCviceniaByPlan(id: number): Observable<any> {
     return this.http.get(`http://localhost:8080/fitness/api/treningovyPlan/cvicenia/${id}`);
   }
+  createUzivatelTreningPlan(userId: number, planId: number): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/fitness/api/uzivatel/${userId}/treningovyPlan/${planId}`, {});
+  }
+
 }

@@ -25,8 +25,6 @@ export class RegistrationComponent {
 
 
   formular = new FormGroup({
-    meno: new FormControl(),
-    priezvisko: new FormControl(),
     username: new FormControl(),
     heslo: new FormControl(),
     vaha: new FormControl(),
@@ -41,14 +39,15 @@ export class RegistrationComponent {
   onSubmit() {
     console.log(this.formular.value);
     if (this.formular.value) {
-      let user = new UserDTO(null,this.formular.value.meno,this.formular.value.priezvisko,
+      let user = new UserDTO(null,
         this.formular.value.username, this.formular.value.heslo,this.formular.value.vek,this.formular.value.vaha,
         this.formular.value.vyska,this.formular.value.pohlavie);
       this.demoService.vytvorUsera(user).subscribe(id => {
         console.log('User bol uspesne vytvoreny')
         user.id = id;
         this.newUserEvent.emit(user);
-        this.router.navigate(['../profile-page'])
+        console.log("user id: " + id);
+        this.router.navigate(['../profile-page', { userId: id }]);
       }, error => {
         console.error('chyba vytvarania Usera!')
         this.toastService.error("chyba vytvarania Usera!!!");
@@ -57,14 +56,26 @@ export class RegistrationComponent {
   }
 
   login(): void {
-    console.log(this.formular1.value);
-    if (this.formular1.value.username && this.formular1.value.heslo) {
-      this.demoService.login(this.formular1.value.username, this.formular1.value.heslo).subscribe(response => {
-        console.log('Prihlásenie úspešné');
-        this.router.navigate(['../profile-page'])
-      }, error => {
-        console.error('Prihlásenie zlyhalo', error);
-      });
+    if (this.formular1.valid) {
+      const { username, heslo } = this.formular1.value;
+      this.demoService.login(username, heslo).subscribe(
+        response => {
+          console.log('Prihlásenie úspešné');
+          this.authService.setToken(response);
+          this.demoService.getUzivatelFromToken(response).subscribe(
+            user => {
+              console.log('Informácie o používateľovi:', user);
+              this.router.navigate(['../profile-page']);
+            },
+            error => {
+              console.error('Chyba pri získavaní informácií o používateľovi!', error);
+            }
+          );
+        },
+        error => {
+          console.error('Prihlásenie zlyhalo', error);
+        }
+      );
     }
   }
 

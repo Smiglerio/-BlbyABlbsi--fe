@@ -1,8 +1,7 @@
 
 export class UserDTO {
   id: number|null;
-  meno: string;
-  priezvisko: string;
+
   username: string;
   heslo: string;
   vek: number;
@@ -11,10 +10,8 @@ export class UserDTO {
   pohlavie: string;
 
 
-  constructor(id: number | null, meno: string, priezvisko: string, username: string, heslo: string, vek: number, vaha: number, vyska: number, pohlavie: string) {
+  constructor(id: number | null, username: string, heslo: string, vek: number, vaha: number, vyska: number, pohlavie: string) {
     this.id = id;
-    this.meno = meno;
-    this.priezvisko = priezvisko;
     this.username = username;
     this.heslo = heslo;
     this.vek = vek;
