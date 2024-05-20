@@ -1,17 +1,30 @@
-<div class="container">
+<!--
+<div class="container" [formGroup]="formular" (load)="ngOnInit()" )>
   <div class="content">
   </div>
   <div class="attributes">
     <mat-form-field>
-      <mat-label>Váha</mat-label>
+      <mat-label formControlName="username">Username</mat-label>
       <input matInput>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Vek</mat-label>
+      <mat-label formControlName="heslo">Heslo</mat-label>
       <input matInput>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Pohlavie</mat-label>
+      <mat-label formControlName="vaha">Váha</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label formControlName="vek">Vek</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label formControlName="vyska">Výška</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label formControlName="pohlavie">Pohlavie</mat-label>
       <mat-select>
         <mat-option value="one">Muž</mat-option>
         <mat-option value="two">Žena</mat-option>
@@ -20,3 +33,32 @@
   </div>
 </div>
 <router-outlet></router-outlet>
+-->
+
+<div class="form-container">
+  <div class="form">
+    <h2>Používateľ</h2>
+    <form [formGroup]="formular" (load)="ngOnInit()">
+      <label for="username">Užívateľské meno: </label>
+      <input id="username" type="text" formControlName="username">
+      <br>
+      <label for="heslo">Heslo: </label>
+      <input id="heslo" type="password" formControlName="heslo">
+      <br>
+      <label for="vek">Vek: </label>
+      <input id="vek" type="text" formControlName="vek">
+      <br>
+      <label for="vaha">Vaha: </label>
+      <input id="vaha" type="text" formControlName="vaha">
+      <br>
+      <label for="vyska">Vyska: </label>
+      <input id="vyska" type="text" formControlName="vyska">
+      <br>
+      <label for="pohlavie">Pohlavie: </label>
+      <input id="pohlavie" type="text" formControlName="pohlavie">
+      <br>
+      <button type="submit" (click)="nastavFormUsername()">Vypíš údaje</button>
+      <button type="submit" (click)="zmenPouzivatela()">Zmeň údaje</button>
+    </form>
+  </div>
+</div>
