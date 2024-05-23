@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vytvorenie tréningového plánu</title>
+  <link rel="stylesheet" href="create-exercise.component.css">
+</head>
+<body>
+
+
+
+<div class="form-container">
+  <div class="form">
+    <h3>Vytvorenie cvikov</h3>
+    <form [formGroup]="Cviky" (ngSubmit)="vytvorCvicenie()">
+      <div>
+        <label for="cvikNazov">Názov cviku:</label>
+        <input type="text" id="cvikNazov" name="cvikNazov" formControlName="nazovCviku">
+      </div>
+      <div>
+        <label for="cvikPopis">popis:</label>
+        <input type="text" id="cvikPopis" name="cvikPopis" formControlName="popisCviku">
+      </div>
+      <select formControlName="idTypCvicenia">
+        <option value="1">Začiatočník</option>
+        <option value="2">Pokročilý</option>
+        <option value="3">Expert</option>
+        <option value="4">grécky poloboh</option>
+        <option value="5">Martin Bendík</option>
+      </select>
+      <button type="submit">Vytvor cvičenia</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

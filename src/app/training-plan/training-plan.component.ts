@@ -77,7 +77,6 @@ export class TrainingPlanComponent implements OnInit{
       console.log("pridane?");
     })
   }
-
 }
 
 

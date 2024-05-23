@@ -16,6 +16,8 @@
     <button *ngIf="router.url === '/profile-page'"
             mat-menu-item
             routerLink="/" (click)="logout()">Odhlásenie</button>
+    <button mat-menu-item routerLink="/create-training-plan">Vytvorenie tréningového plánu</button>
+    <button mat-menu-item routerLink="/create-exercise">Vytvorenie cvičenia</button>
   </mat-menu>
 </mat-toolbar>
 

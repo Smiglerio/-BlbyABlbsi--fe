@@ -5,7 +5,7 @@ export class UserDTO {
   username: string;
   heslo: string;
   vek: number;
-  vaha: number;
+  vaha: string;
   vyska: number;
   pohlavie: string;
 
@@ -22,17 +22,13 @@ export class UserDTO {
 }
 export class CvicenieDTO {
   cvicenieid: number | null;
-  nazovcviku: string;
-  popiscviku: string;
-  narocnost : string;
-  pocetOpakovani : number;
+  nazovCviku: string;
+  popisCviku: string;
   idTypCvicenia: number | null;
-  constructor(cvicenieid: number | null, nazovcviku: string, popiscviku: string,narocnost : string,pocetOpakovani : number,idTypCvicenia: number ) {
+  constructor(cvicenieid: number | null, nazovcviku: string, popiscviku: string,idTypCvicenia: number | null) {
     this.cvicenieid = cvicenieid;
-    this.nazovcviku = nazovcviku;
-    this.popiscviku = popiscviku;
-    this.narocnost = narocnost;
-    this.pocetOpakovani = pocetOpakovani;
+    this.nazovCviku = nazovcviku;
+    this.popisCviku = popiscviku;
     this.idTypCvicenia = idTypCvicenia;
   }
 }
@@ -74,11 +70,13 @@ export class treningovyPlanDTO {
   planid: number |null;
   nazov : string;
   popis : string;
+  public cviceniaList: number[]
 
-  constructor(planid: number | null, nazov: string , popis: string) {
+  constructor(planid: number | null, nazov: string , popis: string, cviceniaList: number[]) {
     this.nazov = nazov;
     this.planid = planid;
     this.popis = popis;
+    this.cviceniaList = cviceniaList;
   }
 }
 
