@@ -48,14 +48,14 @@ export class DemoService {
   login(username: string, heslo: string): Observable<string> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer '
+      'Authorization': 'Bearer'
     });
     return this.http.post<string>(this.apiUrlUserLogin, { username, heslo }, { headers, responseType: 'text' as 'json' });
   }
   getUzivatelFromToken(token: String | null): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer '
+      'Authorization': 'Bearer'
     });
     console.log("string tutut " + token);
     const temp  = this.http.post<string>("http://localhost:8080/fitness/api/getUzivatelFromToken",{token},{ headers, responseType: 'text' as 'json' });
@@ -74,5 +74,8 @@ export class DemoService {
   }
   createCvicenie(CvicenieDTO: CvicenieDTO) {
     return this.http.post<any>('http://localhost:8080/fitness/api/cvicenie',CvicenieDTO);
+  }
+  getVahyByUserId(token: string): Observable<any> {
+    return this.http.post<any>('http://localhost:8080/fitness/api/uzivatel/getVahy', token);
   }
 }

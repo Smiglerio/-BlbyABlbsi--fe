@@ -1,19 +1,23 @@
-.menu{
+
+.menu {
   z-index: 1;
 }
-.tooltip{
+
+.tooltip {
   background-color: gray;
   justify-content: right;
   display: flex;
 }
-.ProfileImage{
+
+.ProfileImage {
   background-size: cover;
   width: auto;
 }
+
 .container {
   display: flex;
   flex-direction: row;
-  margin: 40px  150px ;
+  margin: 40px 150px;
 }
 
 .content {
@@ -38,27 +42,35 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
-.form-container {
+
+.main-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80%;
-  max-width: 800px;
+  max-width: 1200px; /* Increased to accommodate both form and chart */
+  margin: 20px auto; /* Center the main-container */
 }
-.form-container .form {
+
+.form-container {
   flex: 1;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  margin: 0 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 10px; /* Add margin to the right to separate from chart */
 }
+
 .form h2 {
   text-align: center;
   margin-bottom: 20px;
 }
+
 .form label {
   display: block;
   margin-bottom: 5px;
 }
+
 .form input[type="text"], .form input[type="email"], .form input[type="password"] {
   width: calc(100% - 20px);
   padding: 8px;
@@ -66,6 +78,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 .form input[type="submit"] {
   width: calc(100% - 20px);
   padding: 10px;
@@ -75,7 +88,15 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .form input[type="submit"]:hover {
   background-color: #0056b3;
 }
 
+.chart-container {
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
