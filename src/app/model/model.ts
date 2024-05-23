@@ -1,6 +1,7 @@
+import {Observable} from "rxjs";
 
 export class UserDTO {
-  id: number|null;
+  id: number | null;
 
   username: string;
   heslo: string;

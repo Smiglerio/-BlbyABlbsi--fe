@@ -12,6 +12,7 @@ import {HttpClientModule} from "@angular/common/http";
 export class DemoService {
   private apiUrlUserCreate: string = "http://localhost:8080/fitness/api/uzivatel";
   private apiUrlUserLogin: string = "http://localhost:8080/fitness/api/login";
+  private apiUrlUserChange: string = "http://localhost:8080/fitness/api/uzivatel/{id}";
   constructor(private http: HttpClient) { }
 
   vytvorUsera(user: UserDTO): Observable<number>{
@@ -20,6 +21,14 @@ export class DemoService {
       'Authorization': 'Basic '
     });
     return this.http.post<number>(this.apiUrlUserCreate, user, {headers});
+  }
+
+  ZmenUsera(user: UserDTO): Observable<number>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic '
+    });
+    return this.http.put<number>("http://localhost:8080/fitness/api/uzivatel/${id}", user, {headers});
   }
 
   getCvicenieList(): Observable<any>{
@@ -39,14 +48,14 @@ export class DemoService {
   login(username: string, heslo: string): Observable<string> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer'
+      'Authorization': 'Bearer '
     });
     return this.http.post<string>(this.apiUrlUserLogin, { username, heslo }, { headers, responseType: 'text' as 'json' });
   }
   getUzivatelFromToken(token: String | null): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer'
+      'Authorization': 'Bearer '
     });
     console.log("string tutut " + token);
     const temp  = this.http.post<string>("http://localhost:8080/fitness/api/getUzivatelFromToken",{token},{ headers, responseType: 'text' as 'json' });
