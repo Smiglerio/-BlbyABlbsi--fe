@@ -49,7 +49,9 @@ export class RegistrationComponent {
         //console.log("user id: " + id);
         this.toastService.success("ahaahaahah")
         alert("Úspešné zaregistrovaný, teraz sa môžte prihlásiť")
-        this.router.navigate(['../registration']);
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['../registration']);
+        });
       }, error => {
         console.error('chyba vytvarania Usera!')
         this.toastService.error("chyba vytvarania Usera!!!");
