@@ -37,13 +37,13 @@ export class RegistrationComponent {
       heslo: new FormControl(),
   })
   onSubmit() {
-    console.log(this.formular.value);
+    //console.log(this.formular.value);
     if (this.formular.value) {
       let user = new UserDTO(null,
         this.formular.value.username, this.formular.value.heslo,this.formular.value.vek,this.formular.value.vaha,
         this.formular.value.vyska,this.formular.value.pohlavie);
       this.demoService.vytvorUsera(user).subscribe(id => {
-        console.log('User bol uspesne vytvoreny')
+        //console.log('User bol uspesne vytvoreny')
         user.id = id;
         this.newUserEvent.emit(user);
         //console.log("user id: " + id);
@@ -62,7 +62,7 @@ export class RegistrationComponent {
       const { username, heslo } = this.formular1.value;
       this.demoService.login(username, heslo).subscribe(
         response => {
-          console.log('Prihlásenie úspešné');
+          //console.log('Prihlásenie úspešné');
           this.authService.setToken(response);
           this.demoService.getUzivatelFromToken(response).subscribe(
             user => {

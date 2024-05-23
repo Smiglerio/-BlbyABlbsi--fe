@@ -10,7 +10,7 @@ export class UserDTO {
   pohlavie: string;
 
 
-  constructor(id: number | null, username: string, heslo: string, vek: number, vaha: number, vyska: number, pohlavie: string) {
+  constructor(id: number | null, username: string, heslo: string, vek: number, vaha: string, vyska: number, pohlavie: string) {
     this.id = id;
     this.username = username;
     this.heslo = heslo;
