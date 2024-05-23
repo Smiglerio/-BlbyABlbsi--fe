@@ -49,7 +49,10 @@ export class RegistrationComponent {
         //console.log("user id: " + id);
         this.toastService.success("ahaahaahah")
         alert("Úspešné zaregistrovaný, teraz sa môžte prihlásiť")
-        this.router.navigate(['../registration']);
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['../registration']);
+        });
+
       }, error => {
         console.error('chyba vytvarania Usera!')
         this.toastService.error("chyba vytvarania Usera!!!");
@@ -62,7 +65,7 @@ export class RegistrationComponent {
       const { username, heslo } = this.formular1.value;
       this.demoService.login(username, heslo).subscribe(
         response => {
-          //console.log('Prihlásenie úspešné');
+          console.log('Prihlásenie úspešné');
           this.authService.setToken(response);
           this.demoService.getUzivatelFromToken(response).subscribe(
             user => {

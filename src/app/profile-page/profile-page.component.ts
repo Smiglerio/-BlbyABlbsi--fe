@@ -1,46 +1,26 @@
-import { Component } from '@angular/core';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {MatToolbar} from "@angular/material/toolbar";
-import {Router, RouterLink, RouterOutlet} from "@angular/router";
-import {MatButton} from "@angular/material/button";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
-import {MatOption, MatSelect} from "@angular/material/select";
-import {MatDivider} from "@angular/material/divider";
-import {AuthService} from "../services/auth.service";
-import {DemoService} from "../services/demo.service";
-import {ToastService} from "angular-toastify";
-import {Subscription} from "rxjs";
-import {UserDTO} from "../model/model";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { DemoService } from '../services/demo.service';
+import { ToastService } from 'angular-toastify';
+import { Subscription } from 'rxjs';
+import { UserDTO } from '../model/model';
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
   imports: [
-    MatMenuTrigger,
-    MatMenu,
-    MatToolbar,
-    RouterOutlet,
-    MatMenuItem,
-    MatButton,
-    RouterLink,
     FormsModule,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatSelect,
-    MatOption,
-    MatDivider,
     ReactiveFormsModule
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css'
 })
-export class ProfilePageComponent {
+export class ProfilePageComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private demoService: DemoService, private toastService: ToastService, private router: Router,private authService: AuthService) {}
-
+  constructor(private formBuilder: FormBuilder, private demoService: DemoService, private toastService: ToastService, private router: Router, private authService: AuthService) {}
 
   formular = new FormGroup({
     username: new FormControl(),
@@ -49,10 +29,49 @@ export class ProfilePageComponent {
     vyska: new FormControl(),
     pohlavie: new FormControl(),
     vek: new FormControl(),
-  })
+  });
+  public chart: any;
 
+  createChart() {
+    this.chart = new Chart("MyChart", {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: "Váha",
+            data: [],
+            backgroundColor: 'blue'
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5
+      }
+    });
+  }
+
+  updateChart(vahy: string[], cas: string[]) {
+    this.chart.data.labels = cas;
+    this.chart.data.datasets[0].data = vahy;
+    this.chart.update();
+  }
   ngOnInit() {
     this.nastavForm();
+    this.createChart();
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.demoService.getVahyByUserId(token).subscribe(input => {
+        let datumy: string[] = [];
+        let vahy: string[] = [];
+        console.log(input)
+        input.forEach((item: any[]) => {
+          vahy.push(item[0]);
+          datumy.push(item[1]);
+        });
+        this.updateChart(vahy, datumy);
+      });
+    }
   }
 
   nastavForm() {
@@ -81,9 +100,8 @@ export class ProfilePageComponent {
     if (token) {
       this.demoService.getUzivatelFromToken(token).subscribe(user => {
         if (user) {
-          const username = user.username; // získanie hodnoty username z objektu user
+          const username = user.username;
           console.log('Username:', username);
-          // tu môžete ďalej pracovať s hodnotou username, napríklad ju zobraziť v konzole alebo použiť na inú účel
         }
       });
     } else {
@@ -96,16 +114,15 @@ export class ProfilePageComponent {
     const token = localStorage.getItem('token');
     if (this.formular.value) {
       let user = new UserDTO(null,
-        this.formular.value.username, this.formular.value.heslo,this.formular.value.vek,this.formular.value.vaha,
-        this.formular.value.vyska,this.formular.value.pohlavie);
+        this.formular.value.username, this.formular.value.heslo, this.formular.value.vek, this.formular.value.vaha,
+        this.formular.value.vyska, this.formular.value.pohlavie);
       this.demoService.ZmenUsera(user).subscribe(id => {
         user.id = id;
-        console.log('User bol uspesne zmenený')
+        console.log('User bol uspesne zmenený');
       }, error => {
-        console.error('chyba zmeny Usera!')
+        console.error('chyba zmeny Usera!');
         this.toastService.error("chyba zmenenia Usera!!!");
       });
     }
   }
-
 }
