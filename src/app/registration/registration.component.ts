@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {DemoService} from "../services/demo.service";
-import {ToastService} from "angular-toastify";
+import {ToastService, AngularToastifyModule} from "angular-toastify";
 import {MatButtonModule} from '@angular/material/button';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
@@ -13,7 +13,7 @@ import {AuthService} from "../services/auth.service";
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule, MatButtonModule, FormsModule, MatInputModule, MatFormFieldModule, MatIcon, RouterLink],
+  imports: [ReactiveFormsModule, MatButtonModule, FormsModule, MatInputModule, MatFormFieldModule, MatIcon, RouterLink,AngularToastifyModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
@@ -37,17 +37,19 @@ export class RegistrationComponent {
       heslo: new FormControl(),
   })
   onSubmit() {
-    console.log(this.formular.value);
+    //console.log(this.formular.value);
     if (this.formular.value) {
       let user = new UserDTO(null,
         this.formular.value.username, this.formular.value.heslo,this.formular.value.vek,this.formular.value.vaha,
         this.formular.value.vyska,this.formular.value.pohlavie);
       this.demoService.vytvorUsera(user).subscribe(id => {
-        console.log('User bol uspesne vytvoreny')
+        //console.log('User bol uspesne vytvoreny')
         user.id = id;
         this.newUserEvent.emit(user);
-        console.log("user id: " + id);
-        this.router.navigate(['../profile-page', { userId: id }]);
+        //console.log("user id: " + id);
+        this.toastService.success("ahaahaahah")
+        alert("Úspešné zaregistrovaný, teraz sa môžte prihlásiť")
+        this.router.navigate(['../registration']);
       }, error => {
         console.error('chyba vytvarania Usera!')
         this.toastService.error("chyba vytvarania Usera!!!");
@@ -60,7 +62,7 @@ export class RegistrationComponent {
       const { username, heslo } = this.formular1.value;
       this.demoService.login(username, heslo).subscribe(
         response => {
-          console.log('Prihlásenie úspešné');
+          //console.log('Prihlásenie úspešné');
           this.authService.setToken(response);
           this.demoService.getUzivatelFromToken(response).subscribe(
             user => {

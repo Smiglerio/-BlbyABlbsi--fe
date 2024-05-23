@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {CvicenieDTO, UserDTO, UserRolesDto} from "../model/model"
+import {CvicenieDTO, treningovyPlanDTO, UserDTO, UserRolesDto} from "../model/model"
 import {map, Observable, switchMap, tap} from "rxjs";
 import {HttpClientModule} from "@angular/common/http";
 /*import * as http from "http";*/
@@ -60,5 +60,10 @@ export class DemoService {
   createUzivatelTreningPlan(userId: number, planId: number): Observable<any> {
     return this.http.post<any>(`http://localhost:8080/fitness/api/uzivatel/${userId}/treningovyPlan/${planId}`, {});
   }
-
+  createTreningovyPlan(treningovyPlanDTO: treningovyPlanDTO){
+    return this.http.post<any>('http://localhost:8080/fitness/api/treningovyPlan',treningovyPlanDTO);
+  }
+  createCvicenie(CvicenieDTO: CvicenieDTO) {
+    return this.http.post<any>('http://localhost:8080/fitness/api/cvicenie',CvicenieDTO);
+  }
 }
