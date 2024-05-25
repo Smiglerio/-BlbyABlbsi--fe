@@ -20,7 +20,7 @@ export class AuthService {
     return this.http.post<any>(this.apiUrlAuth, null, {headers, observe: 'response'}).pipe(
       tap((response: HttpResponse<any>) => this.setToken(response.headers.get("Authorization"))),
       switchMap((user: HttpResponse<any>) => this.http.get<any>(this.apiUrlAuth).pipe(
-        tap((user: UserRolesDto) => this.setUser(user))
+          tap((user: UserRolesDto) => this.setUser(user))
         )
       )
     )
@@ -69,11 +69,9 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    console.log("logout 1")
     return this.http.delete(this.apiUrlLogout, {
     }).pipe(
       tap( () => { localStorage.removeItem('token');
-        console.log("logout 2")
         localStorage.removeItem('user'); } )
     )
   }

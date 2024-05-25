@@ -2,7 +2,7 @@ import {Observable} from "rxjs";
 
 export class UserDTO {
   id: number | null;
-
+  token: string | null;
   username: string;
   heslo: string;
   vek: number;
@@ -11,8 +11,9 @@ export class UserDTO {
   pohlavie: string;
 
 
-  constructor(id: number | null, username: string, heslo: string, vek: number, vaha: string, vyska: number, pohlavie: string) {
+  constructor(id: number | null, token: string | null, username: string, heslo: string, vek: number, vaha: string, vyska: number, pohlavie: string) {
     this.id = id;
+    this.token = token;
     this.username = username;
     this.heslo = heslo;
     this.vek = vek;

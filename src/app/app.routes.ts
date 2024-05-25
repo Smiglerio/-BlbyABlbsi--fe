@@ -5,6 +5,7 @@ import {HomePageComponent} from "./home-page/home-page.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {CreateTrainingPlanComponent} from "./create-training-plan/create-training-plan.component";
 import {CreateExerciseComponent} from "./create-exercise/create-exercise.component";
+import {ProgressPageComponent} from "./progress-page/progress-page.component";
 
 export const routes: Routes = [
   { path: 'profile-page', component: ProfilePageComponent},
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'registration', component: RegistrationComponent},
   {path: 'create-training-plan', component: CreateTrainingPlanComponent},
   {path:'create-exercise', component: CreateExerciseComponent},
+  {path: 'progress-page/:planid', component: ProgressPageComponent},
   { path: '**', redirectTo:'/home-page',pathMatch:'full' },
   { path: '', redirectTo:'/home-page',pathMatch:'full'},
 ];

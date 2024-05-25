@@ -33,28 +33,26 @@ export class RegistrationComponent {
     vek: new FormControl(),
   })
   formular1 = new FormGroup({
-      username: new FormControl(),
-      heslo: new FormControl(),
+    username: new FormControl(),
+    heslo: new FormControl(),
   })
   onSubmit() {
     //console.log(this.formular.value);
     if (this.formular.value) {
-      let user = new UserDTO(null,
+      let user = new UserDTO(null, null,
         this.formular.value.username, this.formular.value.heslo,this.formular.value.vek,this.formular.value.vaha,
         this.formular.value.vyska,this.formular.value.pohlavie);
       this.demoService.vytvorUsera(user).subscribe(id => {
-        //console.log('User bol uspesne vytvoreny')
         user.id = id;
         this.newUserEvent.emit(user);
-        //console.log("user id: " + id);
-        this.toastService.success("ahaahaahah")
-        alert("Úspešné zaregistrovaný, teraz sa môžte prihlásiť")
+
+        this.toastService.info('Úspešné zaregistrovaný, teraz sa môžte prihlásiť');
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['../registration']);
         });
 
       }, error => {
-        console.error('chyba vytvarania Usera!')
+        console.error('chyba vytvarania Usera!');
         this.toastService.error("chyba vytvarania Usera!!!");
       });
     }
@@ -65,14 +63,15 @@ export class RegistrationComponent {
       const { username, heslo } = this.formular1.value;
       this.demoService.login(username, heslo).subscribe(
         response => {
-          console.log('Prihlásenie úspešné');
           this.authService.setToken(response);
+          console.log("test " + this.authService.setToken(response));
           this.demoService.getUzivatelFromToken(response).subscribe(
             user => {
-              console.log('Informácie o používateľovi:', user);
+              this.toastService.success("Prihlásenie úspešné");
               this.router.navigate(['../profile-page']);
             },
             error => {
+              this.toastService.error("Neúspešné prihlásenie");
               console.error('Chyba pri získavaní informácií o používateľovi!', error);
             }
           );

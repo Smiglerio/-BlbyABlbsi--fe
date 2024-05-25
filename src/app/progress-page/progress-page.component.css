@@ -1,0 +1,80 @@
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.right-panel {
+  width: 65%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .left-panel, .right-panel {
+    width: 100%;
+  }
+}
+
+mat-card {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-margin {
+  margin: 16px;
+}
+
+.cvik-item {
+  display: flex;
+}
+
+.cvik-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.cvik-details {
+  flex: 1;
+}
+
+.cvik-checkbox {
+  margin-left: auto;
+  align-self: center;
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.progress-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2em;
+  font-weight: bold;
+}

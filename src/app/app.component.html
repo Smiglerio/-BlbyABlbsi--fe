@@ -8,19 +8,23 @@
     <button *ngIf="router.url === '/home-page'"
             mat-menu-item
             routerLink="/registration">Prihlásenie</button>
-    <button *ngIf="router.url === '/profile-page'"
+    <button *ngIf="checkLoginStatus()"
             mat-menu-item
             routerLink="/profile-page">Profil</button>
     <button mat-menu-item
             routerLink="/training-plan">Tréningové plány</button>
-    <button *ngIf="router.url === '/profile-page'"
+    <button *ngIf="checkLoginStatus()"
             mat-menu-item
             routerLink="/" (click)="logout()">Odhlásenie</button>
-    <button mat-menu-item routerLink="/create-training-plan">Vytvorenie tréningového plánu</button>
-    <button mat-menu-item routerLink="/create-exercise">Vytvorenie cvičenia</button>
+    <button *ngIf="checkLoginStatus()"
+            mat-menu-item
+            routerLink="/create-training-plan">Vytvorenie tréningového plánu</button>
+    <button *ngIf="checkLoginStatus()"
+            mat-menu-item
+            routerLink="/create-exercise">Vytvorenie cvičenia</button>
   </mat-menu>
 </mat-toolbar>
-
+<lib-toastify-toast-container></lib-toastify-toast-container>
 <router-outlet></router-outlet>
 </body>
 

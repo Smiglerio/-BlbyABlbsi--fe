@@ -2,7 +2,7 @@ import {Component, Input, NgModule, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink, RouterOutlet} from "@angular/router";
 import {MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
-import {AngularToastifyModule} from "angular-toastify";
+import {AngularToastifyModule,ToastService} from "angular-toastify";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatToolbar} from "@angular/material/toolbar";
 import {DemoService} from "../services/demo.service";
@@ -44,7 +44,7 @@ export class TrainingPlanComponent implements OnInit{
   treningovePlany : any;
   panelOpenState = false;
   userId: any;
-  constructor(private demoService : DemoService, private authService: AuthService) { }
+  constructor(private demoService : DemoService, private authService: AuthService, private toastService: ToastService,) { }
   ngOnInit() {
     this.demoService.getUzivatelFromToken(this.authService.getToken()).subscribe(user => {
       this.userId = parseInt(user.split(',')[6].split(':')[1])
@@ -52,30 +52,32 @@ export class TrainingPlanComponent implements OnInit{
     });
   }
   loadData(): void {
-      this.data = this.demoService.getCvicenieList();
-      console.log(this.data);
-      console.log("tadaaaaaa");
-    }
-    loadTreningovePlany() : void {
-      this.demoService.getTreningovePlanyList().subscribe((treningovePlany: any) => {
-        this.treningovePlany = treningovePlany;
-        this.loadData();
-      })
-    }
+    this.data = this.demoService.getCvicenieList();
+  }
+  loadTreningovePlany() : void {
+    this.demoService.getTreningovePlanyList().subscribe((treningovePlany: any) => {
+      this.treningovePlany = treningovePlany;
+      this.loadData();
+    })
+  }
 
   loadCviceniaByPlanId(id: number): void {
-    console.log("jujhuuhu");
     this.demoService.getCviceniaByPlan(id).subscribe((cvicenia: any) => {
       this.cvicenia[id] = cvicenia;
-      console.log("cvicenia");
     });
   }
 
   createUzivatelTreningPlan(userId: number, planId: number) : void {
-    console.log("zaciatok pridavania");
     this.demoService.createUzivatelTreningPlan(userId,planId).subscribe((userPlan) => {
-      console.log("pridane?");
+      this.toastService.success('plán bol úspešne pridaný');
     })
+  }
+
+  deletePlan(planId: string) {
+    this.demoService.deletePlan(planId).subscribe(response => {
+      this.toastService.success('Plán bol úspešne odstránený');
+      this.loadTreningovePlany();
+    });
   }
 }
 

@@ -2,29 +2,79 @@
   <div class="form-container">
     <div class="form">
       <h2>Používateľ</h2>
-      <form [formGroup]="formular" (load)="ngOnInit()">
-        <label for="username">Užívateľské meno: </label>
-        <input id="username" type="text" formControlName="username">
-        <br>
-        <label for="heslo">Heslo: </label>
-        <input id="heslo" type="password" formControlName="heslo">
-        <br>
-        <label for="vek">Vek: </label>
-        <input id="vek" type="text" formControlName="vek">
-        <br>
-        <label for="vaha">Vaha: </label>
-        <input id="vaha" type="text" formControlName="vaha">
-        <br>
-        <label for="vyska">Vyska: </label>
-        <input id="vyska" type="text" formControlName="vyska">
-        <br>
-        <button type="submit" (click)="nastavFormUsername()">Vypíš údaje</button>
-        <button type="submit" (click)="zmenPouzivatela()">Zmeň údaje</button>
+      <form [formGroup]="formular" (submit)="zmenPouzivatela()">
+        <div class="form-column">
+          <div class="form-row">
+            <label for="vek">Vek: </label>
+            <input id="vek" type="text" formControlName="vek">
+          </div>
+          <div class="form-row">
+            <label for="vaha">Vaha: </label>
+            <input id="vaha" type="text" formControlName="vaha">
+          </div>
+        </div>
+        <div class="form-column">
+          <div class="form-row">
+            <label for="vyska">Vyska: </label>
+            <input id="vyska" type="text" formControlName="vyska">
+          </div>
+          <div class="form-row">
+            <label for="pohlavie">Pohlavie: </label>
+            <input id="pohlavie" type="text" formControlName="pohlavie">
+          </div>
+          <div class="form-row">
+            <label for="BMI">BMI: </label>
+            <input id="BMI" type="text" formControlName="BMI">
+          </div>
+        </div>
+        <button mat-raised-button type="submit">Zmeň údaje</button>
+        <button mat-raised-button type="button" (click)="openDialog()">Zmena hesla</button>
       </form>
     </div>
   </div>
-
-  <div class="chart-container">
-    <canvas id="MyChart">{{ chart }}</canvas>
+  <div>
+    <div class="chart-container">
+      <div class="chart">
+        <canvas id="MyChart">{{ chart }}</canvas>
+      </div>
+    </div>
+    <div class="additional-div">
+      <div *ngFor="let plan of treningovePlany" class="plan-item">
+        <div class="plan-content" (click)="navigateToProgress(plan.planId)">
+          <h3>{{ plan.nazov }}</h3>
+          <p>{{ plan.popis }}</p>
+          <div class="progress-container">
+            <mat-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="plan.value">
+            </mat-progress-spinner>
+            <div class="progress-percentage">{{ plan.value | number:'1.0-0' }}%</div>
+          </div>
+        </div>
+        <button type="button" (click)="deletePlan(plan)" mat-button class="planButton">Odstrániť</button>
+      </div>
+    </div>
   </div>
+  <ng-template #changePasswordDialog>
+    <h1 mat-dialog-title>Zmena hesla</h1>
+    <div mat-dialog-content>
+      <form [formGroup]="zmenaHeslaForm" (ngSubmit)="onChangePassword()">
+        <mat-form-field>
+          <mat-label>Aktuálne heslo</mat-label>
+          <input matInput type="password" formControlName="aktualneHeslo">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Nové heslo</mat-label>
+          <input matInput type="password" formControlName="noveHeslo">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Potvrďte nové heslo</mat-label>
+          <input matInput type="password" formControlName="confirmPassword">
+        </mat-form-field>
+        <div mat-dialog-actions>
+          <button mat-button type="button" (click)="onCancelChangePassword()">Zrušiť</button>
+          <button mat-button type="submit" [disabled]="!zmenaHeslaForm.valid">Zmeniť heslo</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
 </div>

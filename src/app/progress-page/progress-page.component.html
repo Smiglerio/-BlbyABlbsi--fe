@@ -1,0 +1,60 @@
+<div class="main-container" *ngIf="treningovyPlan">
+  <div class="left-panel">
+    <mat-card>
+      <mat-card-header class="mat-card-header">
+        <mat-card-title>{{treningovyPlan.nazov}}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        {{treningovyPlan.popis}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <h3>Progress</h3>
+        <div class="progress-container">
+          <mat-progress-spinner
+            class="example-margin"
+            [color]="color"
+            [mode]="mode"
+            [value]="value">
+          </mat-progress-spinner>
+          <div class="progress-percentage">{{ value | number:'1.0-0' }}%</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="right-panel" *ngIf="cvicenia">
+    <mat-card>
+      <mat-card-content>
+        <h3>Zoznam cvikov</h3>
+        <div *ngFor="let cvik of cvicenia" class="cvik-item">
+          <mat-card>
+            <div class="cvik-content">
+              <div class="cvik-details">
+                <mat-card-header>
+                  <mat-card-title>{{ cvik.nazovCviku }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  Popis cviku: {{ cvik.popisCviku }}
+                </mat-card-content>
+                <mat-card-content>
+                  Náročnosť: {{ cvik.narocnost }}
+                </mat-card-content>
+                <mat-card-content>
+                  Počet opakovaní: {{ cvik.pocetOpakovani }}
+                </mat-card-content>
+                <mat-card-content>
+                  Stav: {{ cvik.odcvicene ? 'Odcvičené' : 'Neodcvičené' }}
+                </mat-card-content>
+              </div>
+              <mat-checkbox class="cvik-checkbox" (change)="changeStatus(cvik.cvicenieid, $event.checked, treningovyPlan.planId)" [checked]="cvik.odcvicene"></mat-checkbox>
+
+            </div>
+          </mat-card>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

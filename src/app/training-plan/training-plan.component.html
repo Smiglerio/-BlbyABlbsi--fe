@@ -9,7 +9,14 @@
           Id plánu: {{ trening.planId }}
         </mat-panel-description>
         <mat-panel-description>
-          <button (click)="createUzivatelTreningPlan(this.userId,trening.planId)" >pridaj plán</button>
+          <div (click)="$event.stopPropagation()">
+            <button (click)="createUzivatelTreningPlan(userId, trening.planId)">pridaj plán</button>
+          </div>
+        </mat-panel-description>
+        <mat-panel-description>
+          <div (click)="$event.stopPropagation()">
+            <button (click)="deletePlan(trening.planId)">Odstrániť plán</button>
+          </div>
         </mat-panel-description>
         <mat-panel-description>
           Popis plánu: {{ trening.popis }}
@@ -40,5 +47,3 @@
     </mat-expansion-panel>
   </div>
 </mat-accordion>
-
-
