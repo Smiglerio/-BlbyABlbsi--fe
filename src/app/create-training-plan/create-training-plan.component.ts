@@ -36,11 +36,13 @@ export class CreateTrainingPlanComponent implements OnInit {
   selectedExercises: any[] = [];
   filteredData: any[] = [];
   searchText: string = '';
+  selectedDifficulty: string = '';
   cvicenia: CvicenieDTO[] = [];
 
   displayedColumns: string[] = ['select', 'nazovCviku', 'popisCviku','narocnost'];
   ngOnInit() {
     this.loadData();
+    this.setupFilterListener();
   }
 
   loadData(): void {
@@ -63,12 +65,13 @@ export class CreateTrainingPlanComponent implements OnInit {
       pokus.push(value['cvicenieid'])
     })
     let treningPlan = new treningovyPlanDTO(null, this.TPformular.value.nazov, this.TPformular.value.popis, pokus);
-    console.log(treningPlan.cviceniaList);
-
 
     this.demoService.createTreningovyPlan(treningPlan).subscribe(id => {
+      this.toastService.success('plán bol úspešne vytvorený');
       treningPlan.planid = id;
-      console.log('Treningovy plán bol vytvorený s id ' + id);
+    });
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['../create-training-plan']);
     });
   }
 
@@ -84,5 +87,18 @@ export class CreateTrainingPlanComponent implements OnInit {
     this.filteredData = this.data.filter(exercise =>
       exercise.nazovCviku.toLowerCase().startsWith(this.searchText.toLowerCase())
     );
+  }
+  filterExercisesByNarocnost() {
+    this.filteredData = this.data.filter(exercise =>
+      this.selectedDifficulty === '' || exercise.narocnost === this.selectedDifficulty
+    );
+  }
+
+  setupFilterListener() {
+    const selectElement = document.getElementById('filtnarocnost') as HTMLSelectElement;
+    selectElement.addEventListener('change', (event) => {
+      this.selectedDifficulty = (event.target as HTMLSelectElement).value;
+      this.filterExercisesByNarocnost();
+    });
   }
 }
